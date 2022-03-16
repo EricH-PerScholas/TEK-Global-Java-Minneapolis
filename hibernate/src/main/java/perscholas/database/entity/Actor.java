@@ -29,15 +29,8 @@ public class Actor {
     @Column(name = "age")
     private Integer age;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "movie_actors",
-            joinColumns = {
-                    @JoinColumn(name = "actor_id", referencedColumnName = "id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "movie_id", referencedColumnName = "id",
-                            nullable = false, updatable = false)})
-    private Set<Movie> movies = new HashSet<>();
+    @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    private Set<MovieActor> movieActors;
 
     @Override
     public String toString() {

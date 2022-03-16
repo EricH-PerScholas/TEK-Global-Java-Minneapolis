@@ -1,9 +1,11 @@
 package perscholas;
 
 import perscholas.database.dao.ActorDAO;
+import perscholas.database.dao.MovieActorDAO;
 import perscholas.database.dao.MovieDAO;
 import perscholas.database.entity.Actor;
 import perscholas.database.entity.Movie;
+import perscholas.database.entity.MovieActor;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class HibernateDemo {
 
     private ActorDAO actorDao = new ActorDAO();
     private MovieDAO movieDao = new MovieDAO();
+    private MovieActorDAO movieActorDao = new MovieActorDAO();
 
     public void work() {
         // read();
@@ -21,40 +24,51 @@ public class HibernateDemo {
         //deleteWithQuery();
         //update();
 
-        addActorToMovie();
+        //addActorToMovie();
 
-        queryManyToMany();
+        //queryManyToMany();
+        queryOneToMany();
 
     }
 
     private void addActorToMovie() {
         // get star wars from the database
         Movie movie = movieDao.findById(1);
+        Actor actor = actorDao.findById(11);
 
-        Actor lea = actorDao.findById(4);
+        MovieActor movieActor = new MovieActor();
+        movieActor.setActor(actor);
+        movieActor.setMovie(movie);
+        movieActor.setCharacterName("C3P0");
 
-        movie.getActors().add(lea);
+        movieActorDao.save(movieActor);
+    }
 
-        lea.getMovies().add(movie);
+    private void queryOneToMany() {
+        MovieActor movieActor = movieActorDao.findById(1);
 
-        movieDao.update(movie);
-        actorDao.update(lea);
+        Actor a = actorDao.findById(movieActor.getActorId());
+
+        System.out.println(movieActor);
+        System.out.println(movieActor.getActor());
+        System.out.println(movieActor.getMovie());
+        System.out.println("Actor first name = " + movieActor.getActor().getFirstName());
     }
 
     private void queryManyToMany() {
         Movie movie = movieDao.findById(1);
 
         System.out.println(movie);
-
-        for ( Actor actor : movie.getActors() ) {
-            System.out.println(actor);
-        }
+//
+//        for ( Actor actor : movie ) {
+//            System.out.println(actor);
+//        }
 
         System.out.println("=================================");
 
         Actor actor = actorDao.findById(5);
         System.out.println(actor);
-        for ( Movie m : actor.getMovies() ) {
+        for ( MovieActor m : actor.getMovieActors() ) {
             System.out.print(m);
         }
 

@@ -36,9 +36,8 @@ public class Movie {
     @Column(name = "create_date")
     private Date createDate = new Date();
 
-    @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY)
-    private Set<Actor> actors = new HashSet<>();
-
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    private Set<MovieActor> movieActors;
 
     @Override
     public String toString() {
