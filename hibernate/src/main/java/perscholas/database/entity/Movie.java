@@ -1,5 +1,6 @@
 package perscholas.database.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,11 +9,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "movies")
 public class Movie {
 
@@ -34,9 +37,11 @@ public class Movie {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
+    @EqualsAndHashCode.Exclude
     private Date createDate = new Date();
 
     @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<MovieActor> movieActors;
 
     @Override
@@ -49,4 +54,5 @@ public class Movie {
                 ", createDate=" + createDate +
                 '}';
     }
+
 }

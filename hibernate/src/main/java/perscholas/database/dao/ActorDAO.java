@@ -3,7 +3,6 @@ package perscholas.database.dao;
 import perscholas.database.entity.Actor;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.List;
 
 public class ActorDAO {
@@ -24,7 +23,7 @@ public class ActorDAO {
 
         try {
             return query.getSingleResult();
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -44,7 +43,7 @@ public class ActorDAO {
         return result;
     }
 
-    public Actor save( Actor actor ) {
+    public Actor save(Actor actor) {
         EntityManager em = emFactoryObj.createEntityManager();
         em.getTransaction().begin();
 
@@ -58,7 +57,7 @@ public class ActorDAO {
         return actor;
     }
 
-    public Actor update( Actor actor ) {
+    public Actor update(Actor actor) {
         EntityManager em = emFactoryObj.createEntityManager(/**/);
         em.getTransaction().begin();
 
@@ -73,8 +72,8 @@ public class ActorDAO {
     }
 
 
-    public void delete( Actor actor ) {
-        if ( actor == null ) {
+    public void delete(Actor actor) {
+        if (actor == null) {
             System.out.println("Can not delete a null object");
             return;
         }
