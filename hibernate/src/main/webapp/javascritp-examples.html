@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script src="./jabascript.js"></script>
+
+
+    <script>
+        var book =
+        {
+            name: "Lord of the Rings",
+            author: 'JR Tolkin',
+            chapters: 15,
+            leadCharacter: "Bilbo Ba'ggins",
+            anotehrCharacter: 'Sam"wise Gangi',
+            escapedCharacter: 'Gol\'um',
+            adventure: function() {
+                return this.leadCharacters + " " + this.anotehrCharacter + " go on an adventure";
+            }
+        }
+        console.log(book);
+
+        book.chapters = 12;
+
+        console.log(book);
+        console.log(book.name);
+        console.log("array / map accessor " + book["name"]);
+
+        for ( prop in book ) {
+            console.log(prop + " = " + book[prop] );
+        }
+
+        let arr = [ 0 , 1, 2, 3, 4 , 5 ];
+
+        console.log("starting array = " + arr );
+        console.log("slice 2nd and 3rd element = " + arr.slice( 2, 4 ));
+
+        console.log(book.adventure());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</head>
+<body>
+
+</body>
+
+
+</html>
