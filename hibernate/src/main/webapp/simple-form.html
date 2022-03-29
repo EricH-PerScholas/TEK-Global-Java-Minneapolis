@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head id="head-tag">
+    <title id="header-title" name="title">This is the page title</title>
+</head>
+
+
+<body>
+
+<ul id="itemList" class="list-group"><!-- comment -->
+    <li class="list-group-item odd">Item 1</li>
+    <li class="list-group-item even">Item 2</li>
+    <li class="list-group-item odd">Item 3</li>
+    <li class="list-group-item even">Item 4</li>
+
+</ul>
+
+
+<form>
+    First Name <input type="text" name="firstName" id="firstNameId"><br>
+    Last Name <input type="text" name="lastName" id="lastNameId"></br>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+
+
+
+<script>
+
+    // this gets us the comment
+     let fc = document.getElementById("itemList").firstChild;
+     console.log( fc);
+
+    // this gets us the whitespace between the comment and the next li
+    let fc1 = document.getElementById("itemList").firstChild.nextSibling;
+     console.log( fc1.textContent);
+
+     let fc2 = document.getElementById("itemList").firstChild.nextSibling.nextSibling;
+     console.log( fc2);
+
+     console.log( fc1.nextSibling + " == " + fc2 );
+
+</script>
+
+
+</html>

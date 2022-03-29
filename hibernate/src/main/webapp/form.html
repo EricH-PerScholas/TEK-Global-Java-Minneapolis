@@ -12,30 +12,86 @@
 
 </head>
 
+<style>
+    .whatever {
+
+    }
+
+/* comment */
+
+
+</style>
+
 <body>
 
+<pre style="background-color:grey;">
+    This preserves formatting of this text
+    Rather than how HTML would format
+    This is often used for                       CODE
+
+</pre>
+<p>
+    This is a paragraph where HTML will
+    format this code as per its own rules !!!
+</p>
+
+<pre>
+     public Actor findById(Integer id) {
+        EntityManager em = emFactoryObj.createEntityManager();
+
+        // select * from actors where id = 1
+        String sql = "SELECT a FROM Actor a WHERE a.id = :actorId";
+        TypedQuery<Actor> query = em.createQuery(sql, Actor.class);
+        query.setParameter("actorId", id);
+
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+</pre>
+<p>
+    public Actor findById(Integer id) {
+    EntityManager em = emFactoryObj.createEntityManager();
+
+    // select * from actors where id = 1
+    String sql = "SELECT a FROM Actor a WHERE a.id = :actorId";
+    TypedQuery<Actor> query = em.createQuery(sql, Actor.class);
+    query.setParameter("actorId", id);
+
+    try {
+    return query.getSingleResult();
+    } catch (NoResultException e) {
+    return null;
+    }
+    }
+
+</p>
+
+<!-- comment -->
 <div class="container">
     <form method="GET" action="">
         <div class="row">
             <div class="col-4">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" style="background:green;">
                     <span class="input-group-text" id="basic-addon1">@</span>
                     <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                           aria-describedby="basic-addon1">
+                           aria-describedby="basic-addon1" id="q1">
                 </div>
             </div>
             <div class="col-sm-6 col-lg-4">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">@</span>
                     <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                           aria-describedby="basic-addon1">
+                           aria-describedby="basic-addon1" id="q2">
                 </div>
             </div>
             <div class="col-sm-6 col-lg-4">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                           aria-describedby="basic-addon1">
+                    <input type="text" class="form-control has-no-css" placeholder="Username" aria-label="Username"
+                           aria-describedby="basic-addon1" id="q2">
                 </div>
             </div>
         </div>
@@ -81,6 +137,10 @@
     </form>
 </div>
 
+<select>
+    <option>option 1</option>
+    <option>option 2</option>
+</select>
 
 </body>
 

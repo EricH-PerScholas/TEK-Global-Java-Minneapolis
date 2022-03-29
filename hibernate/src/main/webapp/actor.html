@@ -1,0 +1,150 @@
+<html>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<h2>Exercise Requirements</h2>
+
+<ul>
+    <li>Create Account or User Registration Form</li>
+    <li>First Name, Last Name, Email Address, Password, Confirm Password</li>
+    <li>Submit button that when submits executes a validate function.</li>
+    <li>Validation function can be done as an onsubmit in the form tag or by adding an event listener</li>
+    <li>Recommendation is using Bootstrap and jQuery but not required</li>
+    <li>When the user corrects their input mistakes, remove any of the error formatting and border color</li>
+</ul>
+
+<h2>Validation Requirements</h2>
+<ul>
+    <li>All fields are required.  Do not use the required attribute on the HTML tag as we want to do with JavaScript</li>
+    <li>First name field should not contain a space.   Bonus : Achieve this with a regex in javascript</li>
+    <li>Optional : find a prebuilt regex on the internet and use it to validate the email address is proper.</li>
+    <li>Password and Confirm password are both required and must be the same.  This is 2 different error messages</li>
+    <li>Password must contain a min of 8 characters and a max of 20 characters.</li>
+    <li>Password must contain a letter and a number</li>
+    <li>If all validates properly show an alert that says something nice.</li>
+</ul>
+
+<h2>Error Messages</h2>
+<ul>
+    <li>Each field that has an error, use CSS to make the border of the input box red</li>
+    <li>Under each input box, create / insert HTML / CSS to show an error message of what is wrong with the input</li>
+    <li>Error messages should be red and maybe a slightly smaller font</li>
+    <li>Try to make the message properly left aligned with the input box. (optional)</li>
+    <li>Extreme Stretch : execute the password validation check on each key press and alter the error messages as the
+        password is being typed.</li>
+</ul>
+
+<hr>
+
+
+<p style="">This is a ptag with some text in it</p>
+
+<p id="pid">this is a p tag with an id</p>
+
+
+<script>
+    $( document ).ready(function() {
+        $( "#pid" ).on( "click", function() {
+            console.log( "p clicked by id" );
+        });
+
+        $( "p" ).on( "click", function(event) {
+            console.log( "<p> was clicked "  + event.target.textContent);
+        });
+
+        $( "form" ).on( "submit", function() {
+            console.log( "form submitted" );
+        });
+    });
+</script>
+
+
+
+<script>
+    function validate(event) {
+        let inputValue = document.getElementById("firstNameId").value;
+        let keyPressed = document.getElementById("keyPressed").value;
+
+        if ( inputValue == '' ) {
+            alert("First Name is required");
+            return false;
+        }
+
+        if ( keyPressed != '' ) {
+            event.preventDefault();
+            console.log(keyPressed);
+
+           window.location.href  = "https://google.com";
+           return false;
+        }
+
+        return true;
+    }
+
+    function firstNameClick() {
+        let firstNameField = document.getElementById('firstNameId');
+        if ( firstNameField.value == "" ) {
+            firstNameField.value = "Empty";
+        }
+    }
+</script>
+
+
+
+<form onsubmit="return validate()" action="">
+    First Name <input type="text" name="firstName" id="firstNameId" onfocus="firstNameClick()"><br>
+    Last Name <input type="text" name="lastName" id="lastNameId"></br>
+    Key Pressed <input type="text" name="keyPressed" id="keyPressed"></br>
+
+    <button type="submit">Submit</button>
+</form>
+
+
+
+<script>
+
+	const button = document.querySelector('button');
+	let lastNameField = document.getElementById('lastNameId');
+
+	// Function to modify the text content of the paragraph
+    const changeText = () => {
+        const p = document.querySelector('p');
+
+        p.textContent = "I changed because of an event listener.";
+        button.textContent="I was clicked";
+
+        p.style.backgroundColor = "red";
+        p.style.border = "solid";
+        p.style.borderWidth = "1px";
+        p.style.width = "100px";
+    }
+
+    const mouseOut = (e) => {
+        const p = document.querySelector('p');
+        p.textContent = "Mouseout";
+
+         p.style.backgroundColor = "white";
+
+         e.target.value = "My value";
+    }
+
+    button.addEventListener('mouseover', changeText);
+
+     // Listen for click event
+    lastNameField.addEventListener('focus', mouseOut);
+
+
+    document.addEventListener('keydown', function() {
+       console.log('key: ' + event.keyCode);
+       console.log('key: ' + event.key);
+       console.log('code: ' + event.code);
+       console.log("================================");
+   });
+
+</script>
+
+
+</body>
+</html>
