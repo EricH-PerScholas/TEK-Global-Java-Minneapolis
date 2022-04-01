@@ -1,6 +1,8 @@
 package teksystems.casestudy.database.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,6 +36,7 @@ public class User {
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private Date createDate = new Date();
+
 
 }
