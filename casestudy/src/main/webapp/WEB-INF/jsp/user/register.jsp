@@ -3,16 +3,18 @@
 <h1>Sign Up</h1>
 
 <form action="/user/registerSubmit"   method="post">
-    Email <input type="email" name="email" id="emailId">
+    <input type="hidden" name="id" value="${form.id}">
+
+    Email <input type="email" name="email" id="emailId" value="${form.email}">
     <br>
-    First Name <input type="text" name="firstName" id="firstNameId">
+    First Name <input type="text" name="firstName" id="firstNameId" value="${form.firstName}">
     <br>
-    Last Name <input type="text" name="lastName" id="lastNameId">
+    Last Name <input type="text" name="lastName" id="lastNameId" value="${form.lastName}">
     <br>
-    Password <input type="text" name="password" id="passwordId">
+    Password <input type="text" name="password" id="passwordId"  value="${form.password}">
     <br>
     Confirm Password <input type="text"
-                            name="confirmPassword" id="confirmPasswordId">
+             name="confirmPassword" id="confirmPasswordId"  value="${form.confirmPassword}">
     <br><br>
     <button type="submit">Submit</button>
 </form>

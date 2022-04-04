@@ -9,6 +9,10 @@ import lombok.ToString;
 @ToString
 public class RegisterFormBean {
 
+    // this id will be null in the case of a create
+    // and will be populated with the user id in the case of an edit
+    private Integer id;
+
     private String email;
 
     private String firstName;
