@@ -27,9 +27,11 @@ public class UserController {
      * this is the controller method for the entry point of the
      * user registration page.   It does not do anything really
      * other than provide a route to the register.jsp page
+     *
+     * This method is the entry point for the create user - it sets up the empty form
      */
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
-    public ModelAndView register() throws Exception {
+    public ModelAndView create() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/register");
 
