@@ -3,6 +3,7 @@ package teksystems.casestudy.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -127,15 +128,27 @@ public class UserController {
 
     // create a form on the user search page that submits to this route using a get method
     // make an input box for the user to enter a search term for first name
-    // add a @RequestParam to take in a search value from the input box
+    // add a @RequestParam to take in a search value from the input box - use required = false in the annotation
     // use the search value in the query
     // add the search value to the model and make it display in the input box when the page reloads
+    // add error checking to make sure that the incoming search value is not null and is not empty.
+    // find apache string utils on maven central and add it to your pom file - very high recommendation
+    // research the StringUtils.isEmpty function and use for error checking
     @GetMapping("/user/search")
     public ModelAndView search() {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/search");
 
-        List<User> users = userDao.findByFirstNameIgnoreCaseContaining("a");
+        String search = "a";
+
+        // very basic example of error checking
+        if ( search != null && ! search.equals("")) {
+            // do your query
+        } else {
+            // make an empty list
+        }
+
+        List<User> users = userDao.findByFirstNameIgnoreCaseContaining(search);
 
         // this line puts the list of users that we just queried into the model
         // the model is a map ( key value store )
