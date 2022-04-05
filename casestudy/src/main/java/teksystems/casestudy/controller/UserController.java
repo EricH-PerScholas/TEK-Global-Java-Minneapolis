@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import teksystems.casestudy.database.dao.UserDAO;
@@ -12,7 +14,9 @@ import teksystems.casestudy.database.entity.User;
 import teksystems.casestudy.formbean.RegisterFormBean;
 import teksystems.casestudy.service.UserService;
 
+import javax.validation.Valid;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +33,7 @@ public class UserController {
      * this is the controller method for the entry point of the
      * user registration page.   It does not do anything really
      * other than provide a route to the register.jsp page
-     *
+     * <p>
      * This method is the entry point for the create user - it sets up the empty form
      */
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
@@ -42,7 +46,7 @@ public class UserController {
         // in this case spring is being nice enough not to throw errors but these
         // 2 lines are safety.
         RegisterFormBean form = new RegisterFormBean();
-        response.addObject("form",form);
+        response.addObject("form", form);
 
         return response;
     }
@@ -52,27 +56,44 @@ public class UserController {
      * 1) the action on the form itself must match the value here in the request mapping
      * 2) method on the form must match the method here
      * otherwise spring MVC will not be able to respond to the request
-     *
+     * <p>
      * In this case the @PostMapping and @RequestMapping are the same with the @PostMapping
      * being a sharthand.   This works the same for @GetMapping
-     *
+     * <p>
      * This method now becomes a create and an edit based on if the id is populated in
      * the RegisterFormBean.
      */
     //@PostMapping( "/user/registerSubmit")
     @RequestMapping(value = "/user/registerSubmit", method = RequestMethod.POST)
-    public ModelAndView registerSubmit(RegisterFormBean form) throws Exception {
+    public ModelAndView registerSubmit(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+           // HashMap errors = new HashMap();
+
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                //errors.put(((FieldError) error).getField(), error.getDefaultMessage());
+                log.info( ((FieldError)error).getField() + " " +  error.getDefaultMessage());
+            }
+
+            // add the error list to the model
+            //response.addObject("formErrors", errors);
+
+            // because there is 1 or more error we do not want to process the logic below
+            // that will create a new user in the database.   We want to show the register.jsp
+            response.setViewName("user/register");
+            return response;
+        }
 
         // we first assume that we are going to try to load the user from
         // the database using the incoming id on the form
         User user = userDao.findById(form.getId());
 
         // if the user is not null the know it is an edit
-         if ( user == null ) {
-             // now, if the user from the database is null then it means we did not
-             // find this user.   Therefore, it is a create.
-             user = new User();
+        if (user == null) {
+            // now, if the user from the database is null then it means we did not
+            // find this user.   Therefore, it is a create.
+            user = new User();
         }
 
         user.setEmail(form.getEmail());
@@ -99,14 +120,14 @@ public class UserController {
     /**
      * This method is for editing a user. There is a path parameter being used
      * to pass the userid for the user that is to be editied.
-     *
+     * <p>
      * In this case the @GetMapping is equivlant to the @RequestMapping
      */
     //@RequestMapping(value = "/user/edit/{userId}", method = RequestMethod.GET)
     @GetMapping("/user/edit/{userId}")
     //public ModelAndView editUser(@RequestParam("userId") Integer userId) throws Exception {
     public ModelAndView editUser(@PathVariable("userId") Integer userId) throws Exception {
-            ModelAndView response = new ModelAndView();
+        ModelAndView response = new ModelAndView();
         response.setViewName("user/register");
 
         User user = userDao.findById(userId);
@@ -126,7 +147,7 @@ public class UserController {
         return response;
     }
 
-    // create a form on the user search page that submits to this route using a get method
+    // create a form on the user search page that action submits to this route using a get method
     // make an input box for the user to enter a search term for first name
     // add a @RequestParam to take in a search value from the input box - use required = false in the annotation
     // use the search value in the query
@@ -142,7 +163,7 @@ public class UserController {
         String search = "a";
 
         // very basic example of error checking
-        if ( search != null && ! search.equals("")) {
+        if (search != null && !search.equals("")) {
             // do your query
         } else {
             // make an empty list
