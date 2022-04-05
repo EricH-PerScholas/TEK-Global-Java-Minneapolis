@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import teksystems.casestudy.database.dao.UserDAO;
 import teksystems.casestudy.database.entity.User;
 import teksystems.casestudy.formbean.RegisterFormBean;
+import teksystems.casestudy.service.UserService;
 
 import java.util.Date;
 
@@ -18,6 +19,9 @@ public class UserController {
 
     @Autowired
     private UserDAO userDao;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * this is the controller method for the entry point of the
