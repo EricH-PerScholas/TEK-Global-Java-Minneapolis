@@ -12,6 +12,7 @@ import teksystems.casestudy.formbean.RegisterFormBean;
 import teksystems.casestudy.service.UserService;
 
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -118,7 +119,29 @@ public class UserController {
         form.setPassword(user.getPassword());
         form.setConfirmPassword(user.getPassword());
 
+        // in this case we are adding the RegisterFormBean to the model
         response.addObject("form", form);
+
+        return response;
+    }
+
+    // create a form on the user search page that submits to this route using a get method
+    // make an input box for the user to enter a search term for first name
+    // add a @RequestParam to take in a search value from the input box
+    // use the search value in the query
+    // add the search value to the model and make it display in the input box when the page reloads
+    @GetMapping("/user/search")
+    public ModelAndView search() {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("user/search");
+
+        List<User> users = userDao.findByFirstNameIgnoreCaseContaining("a");
+
+        // this line puts the list of users that we just queried into the model
+        // the model is a map ( key value store )
+        // any object of any kind can go into the model using this key value
+        // in this case it is a list of Users
+        response.addObject("usersModelKey", users);
 
         return response;
     }
