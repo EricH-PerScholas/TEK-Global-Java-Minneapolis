@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
+import teksystems.casestudy.validation.EmailUnique;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Getter
@@ -18,8 +19,10 @@ public class RegisterFormBean {
     // and will be populated with the user id in the case of an edit
     private Integer id;
 
+    @EmailUnique(message = "Email already exists in database")
     @NotBlank(message = "Email is required")
-    @Pattern(regexp = "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}", message = "Email format invalid")
+    @Email(message = "@Email from spring validator")
+    @Pattern(regexp = "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}", message = "Email format invalid in regex check")
     private String email;
 
     @NotBlank(message = "First name is required")
