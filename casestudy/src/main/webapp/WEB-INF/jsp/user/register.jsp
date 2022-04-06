@@ -11,7 +11,7 @@
     <h1>Edit User</h1>
 </c:if>
 
-<form action="/user/registerSubmit"   method="post">
+<form action="/user/registerSubmit"   method="get">
     <input type="hidden" name="id" value="${form.id}">
 
     Email <input type="text" name="email" id="emailId" value="${form.email}">
@@ -24,7 +24,11 @@
     <br>
     Confirm Password <input type="text"
              name="confirmPassword" id="confirmPasswordId"  value="${form.confirmPassword}">
-    <br><br>
+    <br>
+    Check Box <input type="checkbox" name="checkbox">
+    <br>
+
+    <br>
     <button type="submit">Submit</button>
 </form>
 

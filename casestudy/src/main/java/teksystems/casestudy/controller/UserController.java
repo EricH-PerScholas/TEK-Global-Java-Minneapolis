@@ -2,6 +2,7 @@ package teksystems.casestudy.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -65,9 +66,11 @@ public class UserController {
      * the RegisterFormBean.
      */
     //@PostMapping( "/user/registerSubmit")
-    @RequestMapping(value = "/user/registerSubmit", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/registerSubmit", method = { RequestMethod.POST, RequestMethod.GET})
     public ModelAndView registerSubmit(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
+
+        log.info(form.toString());
 
         if (bindingResult.hasErrors()) {
            // HashMap errors = new HashMap();

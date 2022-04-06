@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import teksystems.casestudy.validation.EmailUnique;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -37,5 +38,8 @@ public class RegisterFormBean {
 
     @NotBlank(message = "Confirm Password is required")
     private String confirmPassword;
+
+    @AssertTrue(message = "Checkbox is required")
+    private boolean checkbox;
 
 }
