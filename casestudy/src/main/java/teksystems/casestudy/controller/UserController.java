@@ -73,15 +73,17 @@ public class UserController {
         log.info(form.toString());
 
         if (bindingResult.hasErrors()) {
-           // HashMap errors = new HashMap();
 
             for (ObjectError error : bindingResult.getAllErrors()) {
-                //errors.put(((FieldError) error).getField(), error.getDefaultMessage());
                 log.info( ((FieldError)error).getField() + " " +  error.getDefaultMessage());
             }
 
+            // add the form back to the model so we can fill up the input fields
+            // so the user can correct the input and does not have type it all again
+            response.addObject("form", form);
+
             // add the error list to the model
-            //response.addObject("formErrors", errors);
+            response.addObject("bindingResult", bindingResult);
 
             // because there is 1 or more error we do not want to process the logic below
             // that will create a new user in the database.   We want to show the register.jsp
