@@ -5,6 +5,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ErrorController {
 
+    @RequestMapping(value = "/error/404")
+    public String error404(HttpServletRequest request) {
+
+        String origialUri = (String) request.getAttribute("javax.servlet.forward.request_uri");
+        log.error("Requested URL not found : " + request.getMethod() + " " + origialUri);
+
+        return "error/404";
+    }
+
+    // This method is for all 500 errors for any Exception that is thrown
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAllExceptions(HttpServletRequest request, Exception ex) {
 

@@ -72,8 +72,6 @@ public class UserController {
 
         log.info(form.toString());
 
-        int i = 10 / 0;
-
         if (bindingResult.hasErrors()) {
 
             for (ObjectError error : bindingResult.getAllErrors()) {

@@ -3,6 +3,7 @@
 <jsp:include page="../include/header.jsp" />
 
 <h1>Error Page</h1>
+<br>
 
 <c:if test="${not empty requestUrl}">
     <p>${requestUrl}</p>
