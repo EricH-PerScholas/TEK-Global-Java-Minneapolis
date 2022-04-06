@@ -1,9 +1,9 @@
 package teksystems.casestudy.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -15,6 +15,7 @@ import teksystems.casestudy.formbean.RegisterFormBean;
 import teksystems.casestudy.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -155,27 +156,24 @@ public class UserController {
     // add error checking to make sure that the incoming search value is not null and is not empty.
     // find apache string utils on maven central and add it to your pom file - very high recommendation
     // research the StringUtils.isEmpty function and use for error checking
-    @GetMapping("/user/search")
-    public ModelAndView search() {
+    @RequestMapping(value="/user/search", method= RequestMethod.GET )
+    public ModelAndView search(@RequestParam(value = "firstName", required = false) String firstName) {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/search");
 
-        String search = "a";
+        List<User> users = new ArrayList<>();
 
         // very basic example of error checking
-        if (search != null && !search.equals("")) {
-            // do your query
-        } else {
-            // make an empty list
+        if (!StringUtils.isEmpty(firstName)) {
+            users = userDao.findByFirstNameIgnoreCaseContaining(firstName);
         }
-
-        List<User> users = userDao.findByFirstNameIgnoreCaseContaining(search);
 
         // this line puts the list of users that we just queried into the model
         // the model is a map ( key value store )
         // any object of any kind can go into the model using this key value
         // in this case it is a list of Users
         response.addObject("usersModelKey", users);
+        response.addObject("firstName", firstName);
 
         return response;
     }
