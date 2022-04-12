@@ -1,7 +1,11 @@
 package teksystems.casestudy.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,24 +27,21 @@ public class IndexController {
     public ModelAndView index() throws Exception {
         ModelAndView response = new ModelAndView();
 
-      // log.debug("lombok logging at debug level");
-       log.info("lombok logging at info level");
-       log.warn("lombok logging at info level");
+        // this little block of code can grab the logged in user and look it up in the
+        // database to get the user object
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User loggedInUser = userDao.findByEmail(currentPrincipalName);
 
-        List<User> users = userDao.findByFirstNameIgnoreCaseContaining("A");
-
-        for( User user : users ) {
-            log.debug(user.toString());
+        if ( loggedInUser == null ) {
+            log.debug("Not logged in");
+        } else {
+            log.debug("User logged in " + loggedInUser);
         }
-
-        // figure out how to add this to the model
-        // add JSTL imports to your pom
-        // figure out how to do a c:forEach in the JSP page
 
         response.setViewName("index");
 
         return response;
     }
-
-
+    
 }

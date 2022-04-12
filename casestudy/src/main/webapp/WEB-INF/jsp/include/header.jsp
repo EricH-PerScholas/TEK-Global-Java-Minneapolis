@@ -33,6 +33,7 @@
 
     <sec:authorize access="isAuthenticated()">
         &nbsp; | &nbsp; <a href="/login/logout">Logout</a>
+        &nbsp; | &nbsp; <sec:authentication property="principal.username" />
     </sec:authorize>
 
     <hr>
