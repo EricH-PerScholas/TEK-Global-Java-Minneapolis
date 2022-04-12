@@ -3,6 +3,7 @@ package teksystems.casestudy.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -21,6 +22,8 @@ import java.util.List;
 
 @Slf4j
 @Controller
+//@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class UserController {
 
     @Autowired
@@ -159,6 +162,7 @@ public class UserController {
     // add error checking to make sure that the incoming search value is not null and is not empty.
     // find apache string utils on maven central and add it to your pom file - very high recommendation
     // research the StringUtils.isEmpty function and use for error checking
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value="/user/search", method= RequestMethod.GET )
     public ModelAndView search(@RequestParam(value = "firstName", required = false) String firstName) {
         ModelAndView response = new ModelAndView();
