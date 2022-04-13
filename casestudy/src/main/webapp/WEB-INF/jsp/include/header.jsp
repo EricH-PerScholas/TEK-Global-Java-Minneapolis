@@ -21,6 +21,7 @@
 
     <a href="/index">Index</a> &nbsp; | &nbsp;
     <a href="/ajax">AJAX Example</a> &nbsp; | &nbsp;
+    <a href="/upload">Upload Example</a> &nbsp; | &nbsp;
     <a href="/user/register">Sign Up</a>
 
     <sec:authorize access="hasAuthority('ADMIN')">
