@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <jsp:include page="include/header.jsp" />
 
 <h1>Conversation</h1>
@@ -14,6 +17,14 @@
 
     <button type="submit">Submit</button>
 </form>
+
+<c:if test="${bindingResult.hasErrors()}">
+    <br>
+
+    <c:forEach items="${bindingResult.getAllErrors()}" var="error">
+        <div style="color:red;">${error.getDefaultMessage()}</div>
+    </c:forEach>
+</c:if>
 
 
 <jsp:include page="include/footer.jsp" />

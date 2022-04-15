@@ -34,6 +34,9 @@ public class ConversationController {
             for ( FieldError error : bindingResult.getFieldErrors()) {
                 log.debug(error.toString());
             }
+
+            // add the errors to the model to be displayed on the page
+            response.addObject("bindingResult", bindingResult);
         }
 
         log.debug(form.toString());
