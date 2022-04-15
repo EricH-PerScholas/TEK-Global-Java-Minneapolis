@@ -15,6 +15,7 @@ import teksystems.casestudy.database.entity.User;
 import teksystems.casestudy.formbean.ConversationFormBean;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @Slf4j
 @Controller
@@ -64,6 +65,22 @@ public class ConversationController {
 
         }
 
+
+        return response;
+    }
+
+
+    @RequestMapping(value = "/conversation/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView delete(@PathParam("id") Integer id) throws Exception {
+        ModelAndView response= new ModelAndView();
+        response.setViewName("conversation");
+
+        Product p = productDao.findById(id);
+        if ( p == null ) {
+            // this is an error
+        } else {
+            productDao.delete(p);
+        }
 
         return response;
     }
