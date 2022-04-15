@@ -30,16 +30,25 @@ public class ConversationController {
         ModelAndView response= new ModelAndView();
         response.setViewName("conversation");
 
+        log.debug(form.toString());
+
         if (bindingResult.hasErrors())  {
+            // this is the error case
             for ( FieldError error : bindingResult.getFieldErrors()) {
                 log.debug(error.toString());
             }
 
             // add the errors to the model to be displayed on the page
             response.addObject("bindingResult", bindingResult);
+
+            // add the form bean back to the model so I can fill the form with the user input
+            response.addObject("form", form);
+        } else {
+            // this is the success case
+
+            
         }
 
-        log.debug(form.toString());
 
         return response;
     }

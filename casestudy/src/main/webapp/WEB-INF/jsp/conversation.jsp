@@ -7,13 +7,14 @@
 
 <form action="/conversation/conversationSubmit" method="get">
 
-    Name : <input type="text" name="productName">
+    Name : <input type="text" name="productName" value="${form.productName}">
+
     <br>
-    Description : <input type="text" name="description">
+    Description : <input type="text" name="description" value="${form.description}">
     <br>
-    Image URL : <input type="text" name="imageURL">
+    Image URL : <input type="text" name="imageURL" value="${form.imageURL}">
     <br>
-    Price : <input type="text" name="price">
+    Price : <input type="text" name="price" value="${form.price}">
 
     <button type="submit">Submit</button>
 </form>
