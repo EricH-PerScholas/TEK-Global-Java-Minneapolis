@@ -1,6 +1,6 @@
 <jsp:include page="include/header.jsp" />
 
-<h1>Product</h1>
+<h1>Conversation</h1>
 
 <form action="/conversation/conversationSubmit" method="get">
 
