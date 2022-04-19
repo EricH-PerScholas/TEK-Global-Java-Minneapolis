@@ -41,6 +41,10 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // this is some comments that will be checked in on the example branch
+
+    
+
     /**
      * this is the controller method for the entry point of the
      * user registration page.   It does not do anything really
