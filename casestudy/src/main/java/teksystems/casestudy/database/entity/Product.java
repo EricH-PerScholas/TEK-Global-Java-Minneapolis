@@ -33,6 +33,8 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<OrderProduct> orderProducts;

@@ -11,8 +11,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import teksystems.casestudy.database.dao.OrderProductDAO;
 import teksystems.casestudy.database.dao.UserDAO;
 import teksystems.casestudy.database.dao.UserRoleDAO;
+import teksystems.casestudy.database.entity.OrderProduct;
 import teksystems.casestudy.database.entity.User;
 import teksystems.casestudy.database.entity.UserRole;
 import teksystems.casestudy.formbean.RegisterFormBean;
@@ -22,6 +24,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -40,6 +43,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private OrderProductDAO opDao;
 
 
     // this is on the master branch
@@ -198,6 +204,9 @@ public class UserController {
         if (!StringUtils.isEmpty(firstName)) {
             users = userDao.findByFirstNameIgnoreCaseContaining(firstName);
         }
+
+        List<Map<String,Object>> cartProducts = opDao.getCartProducts(1,"PENDING");
+        response.addObject("cartProducts", cartProducts);
 
         // this line puts the list of users that we just queried into the model
         // the model is a map ( key value store )

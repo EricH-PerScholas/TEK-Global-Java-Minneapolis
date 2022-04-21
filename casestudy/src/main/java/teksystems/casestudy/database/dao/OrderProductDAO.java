@@ -20,6 +20,12 @@ public interface OrderProductDAO extends JpaRepository<OrderProduct, Long> {
             nativeQuery = true)
     List<Map<String,Object>> getProductNameAndOderCount();
 
+    @Query(value="select p.id as product_id, p.name, p.price, op.quantity, o.id as order_id, (price * quantity) as total " +
+            "from products p, order_products op, orders o " +
+            "where p.id = op.product_id and o.id = op.order_id " +
+            "and o.user_id = :userId and status = :status", nativeQuery = true)
+    List<Map<String,Object>> getCartProducts(@Param("userId") Integer userId, @Param("status") String status );
+
     // in your JSP you can do a for each
     // for each orderProduct var=op
     // ${op.cnt}   ${op.product_id} ${op.name}

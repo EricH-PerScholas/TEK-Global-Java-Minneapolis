@@ -36,4 +36,26 @@
 </table>
 
 
+<table class="table">
+    <tr scope="row">
+        <th>Product Name</th>
+        <th>Pid</th>
+        <th>Oid</th>
+        <th>Quantity</th>
+        <th>price</th>
+        <th>Total</th>
+    </tr>
+    <c:forEach items="${cartProducts}" var="cp">
+        <tr scope="row">
+            <td>${cp.name}</td>
+            <td>${cp.product_id}</td>
+            <td>${cp.order_id}</td>
+            <td>${cp.quantity}</td>
+            <td>${cp.price}</td>
+            <td>${cp.total}</td>
+        </tr>
+    </c:forEach>
+</table>
+
+
 <jsp:include page="../include/footer.jsp" />
